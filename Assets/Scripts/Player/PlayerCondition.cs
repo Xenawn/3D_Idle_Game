@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCondition : MonoBehaviour
 {
-    [Range(1, 100)][SerializeField] private int health = 10;
-    public int Health
+    [Range(1, 100)][SerializeField] private float health = 10;
+    public float Health
     {
         get => health;
         set => health = Mathf.Clamp(value, 0, 100);
@@ -24,5 +24,13 @@ public class PlayerCondition : MonoBehaviour
     {
         get => attack;
         set => attack = Mathf.Clamp(value, 0, 20);
+    }
+
+    public float MaxHealth = 100f;
+    private void Awake()
+    {
+        GameManager.Instance.PlayerCondition = this;
+        Health = MaxHealth;
+        
     }
 }

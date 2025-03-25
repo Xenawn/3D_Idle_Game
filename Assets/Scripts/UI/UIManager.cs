@@ -15,9 +15,19 @@ public class UIManager : MonoBehaviour
     GameUI gameUI;
     //GameOverUI gameOverUI;
     private UIState currentState;
-
+    
+    private static UIManager _uinstance;
+    public static UIManager _Uinstance
+    { get
+        {
+            return _uinstance;
+        }
+    } 
     private void Awake()
     {
+
+        _uinstance = this;
+ 
         //homeUI = GetComponentInChildren<HomeUI>(true);
         //homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
@@ -25,7 +35,7 @@ public class UIManager : MonoBehaviour
         //gameOverUI = GetComponentInChildren<GameOverUI>(true);
         //gameOverUI.Init(this);
 
-        ChangeState(UIState.Home);
+        ChangeState(UIState.Game);
     }
 
     public void SetPlayGame()
@@ -38,13 +48,10 @@ public class UIManager : MonoBehaviour
         ChangeState(UIState.GameOver);
     }
 
-    public void ChangeWave(int waveIndex)
-    {
-        gameUI.UpdateWaveText(waveIndex);
-    }
-
+   
     public void ChangePlayerHP(float currentHP, float maxHP)
     {
+        Debug.Log("Updating HP Slider: " + currentHP + "/" + maxHP);
         gameUI.UpdateHPSlider(currentHP / maxHP);
     }
 

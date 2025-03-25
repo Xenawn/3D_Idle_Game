@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public abstract class AIState
 {
     protected AIController ai;
-
+    private bool isStateChanging = false;
     public AIState(AIController ai)
     {
         this.ai = ai;
@@ -22,7 +22,7 @@ public class IdleState : AIState
     private float moveRadius = 3f;    // 랜덤 이동 반경
     private Transform player;
     private LayerMask enemyLayer;
-
+    private bool isStateChanging = false;
     public IdleState(AIController ai) : base(ai)
     {
         this.player = ai.transform;
@@ -32,7 +32,7 @@ public class IdleState : AIState
     public override void Enter()
     {
         Debug.Log("상태: Idle (대기)");
-        ai.StartCoroutine(SearchForEnemy());
+       ai.StartCoroutine(SearchForEnemy());
     }
 
     public override void Update() { }
@@ -41,7 +41,7 @@ public class IdleState : AIState
 
     private IEnumerator SearchForEnemy()
     {
-        while (true)
+        while (!isStateChanging)  // 상태 전환이 발생할 때까지 계속 탐색
         {
             Collider[] enemies = Physics.OverlapSphere(player.position, searchRadius, enemyLayer);
 
@@ -51,7 +51,8 @@ public class IdleState : AIState
                 if (closestEnemy != null)
                 {
                     ai.ChangeState(new MoveToEnemyState(ai, closestEnemy));
-                    yield break;
+                    isStateChanging = true; // 상태 전환 플래그 설정
+                    yield break; // 코루틴 종료
                 }
             }
 

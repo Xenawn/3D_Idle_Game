@@ -28,4 +28,20 @@ public class Player : MonoBehaviour
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
     }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            
+            GameManager.Instance.PlayerCondition.Health -= 10;
+            UIManager._Uinstance.ChangePlayerHP(GameManager.Instance.PlayerCondition.Health, GameManager.Instance.PlayerCondition.MaxHealth);
+            if (GameManager.Instance.PlayerCondition.Health <= 0)
+            {
+                Debug.Log("Die");
+            }
+        }
+    }
 }

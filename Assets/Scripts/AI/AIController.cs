@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
+    public float AttackDamage = 10f;  // 공격력 (피해량)
     public NavMeshAgent NavAgent;
     public float AttackRange = 2f;
     public float AttackSpeed = 1f;
@@ -14,9 +15,21 @@ public class AIController : MonoBehaviour
     public AIState CurrentState => currentState;
     public Transform Target { get; private set; }
 
+    private void Awake()
+    {
+
+        if (NavAgent == null)
+        {
+            NavAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (NavAgent == null)
+            {
+                Debug.LogError("NavMeshAgent가 할당되지 않았습니다.");
+            }
+        }
+    }
     private void Start()
     {
-        NavAgent = GetComponent<NavMeshAgent>();
+     
         ChangeState(new IdleState(this));
     }
 

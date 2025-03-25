@@ -6,23 +6,21 @@ using UnityEngine.UI;
 
 public class GameUI : BaseUI 
 {
-    [SerializeField] private TextMeshProUGUI waveText;
+    //[SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private Slider hpSlider;
 
     private void Start()
     {
-        UpdateHPSlider(1);
+        UpdateHPSlider(1); // 꽉 채운 값
     }
 
     public void UpdateHPSlider(float percentage)
     {
+        Debug.Log("Updating HP Slider with percentage: " + percentage);  // 로그 추가
         hpSlider.value = percentage;
     }
 
-    public void UpdateWaveText(int wave)
-    {
-        waveText.text = wave.ToString();
-    }
+  
 
     protected override UIState GetUIState()
     {
