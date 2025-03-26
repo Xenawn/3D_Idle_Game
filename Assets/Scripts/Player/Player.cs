@@ -7,8 +7,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private float speed = 3f;
-
+    public int money = 0;
     // Update is called once per frame
+    private void Awake()
+    {
+        GameManager.Instance.Player = this;
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.W))
@@ -56,5 +60,16 @@ public class Player : MonoBehaviour
             GameManager.Instance.UsePotion(potion);
             Destroy(other.gameObject); // 포션 사용 후 제거
         }
+
+        Money money = other.GetComponent<Money>();
+        if (money != null)
+        {
+            money.EquipMoney(); // 돈 획득
+            UpdateMoneyUI();  // UI 업데이트 메소드 호출
+        }
+    }
+    public void UpdateMoneyUI()
+    {
+        UIManager._Uinstance.UpdateMoneyDisplay(money);  // UIManager에서 UI 업데이트 메소드 호출
     }
 }

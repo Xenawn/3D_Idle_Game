@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum UIState
@@ -12,6 +13,8 @@ public enum UIState
 public class UIManager : MonoBehaviour
 {
     //HomeUI homeUI;
+    
+   public TextMeshProUGUI moneyText;
     GameUI gameUI;
     //GameOverUI gameOverUI;
     private UIState currentState;
@@ -61,5 +64,10 @@ public class UIManager : MonoBehaviour
       //  homeUI.SetActive(currentState);
         gameUI.SetActive(currentState);
        // gameOverUI.SetActive(currentState);
+    }
+    // UI 업데이트 메소드
+    public void UpdateMoneyDisplay(int money)
+    {
+        moneyText.text =  money.ToString();
     }
 }

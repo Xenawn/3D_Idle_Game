@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    
     private static GameManager instance;
+    public int money = 0;
     public static  GameManager Instance { 
         get { 
                 if (instance == null)
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
 
        
     }
+    private Player player;
+    public Player Player { get { return player; } set { player = value; } }
     private Enemy enemy;
     public Enemy Enemy { get { return enemy; } set { enemy = value; } }
 
