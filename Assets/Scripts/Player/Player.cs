@@ -43,5 +43,18 @@ public class Player : MonoBehaviour
                 Debug.Log("Die");
             }
         }
+
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PotionItem potion = other.GetComponent<PotionItem>();
+        if (potion != null)
+        {
+            GameManager.Instance.UsePotion(potion);
+            Destroy(other.gameObject); // 포션 사용 후 제거
+        }
     }
 }

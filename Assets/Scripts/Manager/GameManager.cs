@@ -37,11 +37,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
 
-    // Update is called once per frame
-    void Update()
+
+    public void UsePotion(PotionItem potion)
     {
-        
+        potion.UsePotion();
     }
 }
